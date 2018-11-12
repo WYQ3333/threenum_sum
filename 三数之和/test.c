@@ -16,6 +16,12 @@
 * Return an array of arrays of size *returnSize.
 * Note: The returned array must be malloced, assume caller calls free().
 */
+void swap(int *p, int *q)
+{
+	int tmp = *p;
+	*p = *q;
+	*q = tmp;
+}
 int** threeSum(int* nums, int numsSize, int* returnSize) {
 	int i = 0;
 	int j = 1;
@@ -26,6 +32,17 @@ int** threeSum(int* nums, int numsSize, int* returnSize) {
 		(*returnSize) = 0;
 		int *ret = NULL;
 		return &ret;
+	}
+	for (i = 0; i < numsSize; i++)
+	{
+		for (j = i+1; j < numsSize; j++)
+		{
+			if (nums[i] == nums[j])
+			{
+				swap(nums + j, nums + (numsSize - 1));
+				numsSize--;
+			}
+		}
 	}
 	for (i = 0; i < numsSize; i++)
 	{
@@ -49,7 +66,7 @@ int** threeSum(int* nums, int numsSize, int* returnSize) {
 
 int main()
 {
-	int nums[] = { -1, 0, 1, 2, -1, -4 };
+	int nums[] = { -1, 0, 1, 2, -4 };
 	int numsSize = sizeof(nums) / sizeof(nums[0]);
 	int input = 0;
 	int *returnSize = &input;
