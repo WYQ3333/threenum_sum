@@ -22,6 +22,7 @@ void swap(int *p, int *q)
 	*p = *q;
 	*q = tmp;
 }
+
 int** threeSum(int* nums, int numsSize, int* returnSize) {
 	int i = 0;
 	int j = 1;
@@ -37,13 +38,16 @@ int** threeSum(int* nums, int numsSize, int* returnSize) {
 	{
 		for (j = i+1; j < numsSize; j++)
 		{
-			if (nums[i] == nums[j])
+			if (nums[j] < nums[i])
 			{
-				swap(nums + j, nums + (numsSize - 1));
-				numsSize--;
+				swap(&nums[j], &nums[i]);
 			}
 		}
 	}
+	int *queue = malloc(sizeof(int)* 3);
+	queue[0] = 0;
+	queue[1] = 0;
+	queue[2] = 0;
 	for (i = 0; i < numsSize; i++)
 	{
 		for (j = i + 1; j < numsSize; j++)
@@ -56,7 +60,11 @@ int** threeSum(int* nums, int numsSize, int* returnSize) {
 					ptr[0] = nums[i];
 					ptr[1] = nums[j];
 					ptr[2] = nums[k];
-					array[(*returnSize)++] = ptr;
+					if (ptr[0] != queue[0] || ptr[1] != queue[1] || ptr[2] != queue[2])
+					{
+						array[(*returnSize)++] = ptr;
+					}
+					queue = ptr;
 				}
 			}
 		}
@@ -66,7 +74,7 @@ int** threeSum(int* nums, int numsSize, int* returnSize) {
 
 int main()
 {
-	int nums[] = { -1, 0, 1, 2, -4 };
+	int nums[] = { -1, 0, 1, 2, -4, -1 };
 	int numsSize = sizeof(nums) / sizeof(nums[0]);
 	int input = 0;
 	int *returnSize = &input;
