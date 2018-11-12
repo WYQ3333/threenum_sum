@@ -54,15 +54,16 @@ int main()
 	int input = 0;
 	int *returnSize = &input;
 	int **ret = threeSum(nums, numsSize, returnSize);
+	int *cur = NULL;
 	while ((*ret) != NULL)
 	{
-		int *cur = *ret;
+		cur = *ret;
 		for (int i = 0; i < 3; i++)
 		{
 			printf("%d ", cur[i]);
 		}
 		printf("\n");
-		(*ret)++;
+		ret++;
 	}
 	system("pause");
 	return 0;
